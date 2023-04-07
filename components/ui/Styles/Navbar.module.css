@@ -1,0 +1,18 @@
+.navContainer{
+    width: 100%;
+    display: flex;
+    margin: 10px 0 10px 10px;
+    justify-content: center;
+}
+
+.navUl {
+    color: darkorange;
+}
+
+.navUl :hover{
+    color: aliceblue;
+}
+
+.navLink{
+    margin: 0 10px 0 0;
+}
