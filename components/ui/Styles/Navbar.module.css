@@ -1,12 +1,17 @@
 .navContainer{
     width: 100%;
     display: flex;
-    margin: 10px 0 10px 10px;
-    justify-content: center;
+    flex-grow: 1;
+    padding: 2px;
+    /* justify-content: center; */
+    align-items: center;
+    background-color: silver;
 }
 
 .navUl {
-    color: darkorange;
+    color: tomato;
+    margin-right : 10px ;
+    
 }
 
 .navUl :hover{
@@ -15,4 +20,10 @@
 
 .navLink{
     margin: 0 10px 0 0;
+    color: #22223b;
+
+}
+
+.navLogo{
+    margin-left: 10px ;
 }
