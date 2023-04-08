@@ -1,5 +1,5 @@
 import Head from "next/head"
-import {Navbar} from "../ui/"
+import {Nav} from "../ui/"
 
 interface props {
     children: React.ReactNode,
@@ -18,7 +18,7 @@ export const Layout = ( {children}: props, {title}:props ): JSX.Element => {
                 <meta name="keywords" content= {`pokemon, pokedex, ${title}`} />
             </Head>
 
-            <Navbar/>
+            <Nav/>
 
             <main>
                 {children}
