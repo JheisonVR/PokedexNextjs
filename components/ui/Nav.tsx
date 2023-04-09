@@ -1,8 +1,6 @@
 import React from 'react'
-import styles from './Styles/Navbar.module.css'
 import Link from 'next/link'
-import Image from 'next/image'
-import { Spacer, Text, Navbar, Button } from '@nextui-org/react'
+import { Text, Navbar, Button } from '@nextui-org/react'
 
 export const Nav = () => {
     return (
@@ -19,7 +17,7 @@ export const Nav = () => {
             </Navbar.Content>
             <Navbar.Content>
                 <Navbar.Item>
-                    <Button auto flat as={Link} href='#' >Sign Up</Button>
+                    <Button auto flat as={Link} href='/' >Sign Up</Button>
                 </Navbar.Item>
             </Navbar.Content>
         </Navbar>

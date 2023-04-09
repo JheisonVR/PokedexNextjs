@@ -1,14 +1,16 @@
+import { FC } from "react"
 import Head from "next/head"
 import {Nav} from "../ui/"
 
-interface props {
+interface Props {
     children: React.ReactNode,
     title?: string
 
 }
 
 
-export const Layout = ( {children}: props, {title}:props ): JSX.Element => {
+export const Layout :FC<Props> = ({children, title}) => {
+//export const Layout = ( {children}: Props, {title}:Props ): JSX.Element => {
     return (
         <>
             <Head>
