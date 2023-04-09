@@ -5,6 +5,8 @@ import { GetStaticProps, NextPage } from 'next'
 import { pokeApi } from '@/api'
 import { PokemonLiistResponse, SmallPokemons } from '@/interfaces'
 import Image from 'next/image';
+import { Card, Grid, Row, Text } from '@nextui-org/react'
+import { PokemonCard } from '@/components/pokemon'
 
 
 interface Props {
@@ -16,37 +18,36 @@ const Home: NextPage<Props> = ({pokemons}) =>{
 // export default function Home() {
   return (
     <Layout >
-      <div style={{width:'100%'}} >
-        <h1>Pokemon List</h1>
-      </div>
-      <div>
-        {pokemons.length}
-        <br />
-        <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center',justifyItems:'center'}} >
-        {pokemons.map((p) => (
-          <div 
-            key={p.id}
-            style={{
-              border:'solid 1px white',
-              margin: '2px',
-              padding: '5px',
-            }} 
-          >
-            <h2>{p.name}</h2>
-            <Image 
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${p.id}.png`}
-              alt='pokemonImage'
-              width={120}
-              height={100}
-            />
-            {/* <img 
-              src= {`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${p.id}.png`}
-              alt="pokemon_Image" /> */}
-          </div>
-        ))}
-        </div>
+      
+        <Text 
+          h1 
+          size={50} 
+          css={{
+            textGradient:"45deg, $purple600 -20%, $pink600 100%",
+          }}
+          weight='bold'
+          
+        >Pokedex First Generation
+        </Text>
+        <Text
+          css={{
+            textGradient:"45deg, $blue600 -20%, $pink600 50%"
+          }}
+        >#Pokemons: {pokemons.length}
+        </Text>
         
-      </div>
+      
+      <Grid.Container gap={2} justify='flex-start' >
+        {pokemons.map((p)=>(
+          <PokemonCard 
+            key={p.id}
+            p={p} 
+          />
+        ))}
+
+      </Grid.Container>
+
+
     </Layout>
   )
 }
@@ -64,23 +65,18 @@ export default Home
 export const getStaticProps: GetStaticProps = async (ctx) => {
   
   // const {data} = await // you fetch function here
-  const {data} = await pokeApi.get<PokemonLiistResponse> ('/pokemon?limit=150');
+  const {data} = await pokeApi.get<PokemonLiistResponse> ('/pokemon?limit=151');
   
-  const pokemonsList = []
-
-  for(let i= 1; i<data.results.length; i++){
-    let {data} = await pokeApi.get(`/pokemon/${i}`)
-    pokemonsList.push(data)
+  const pokemons: SmallPokemons[] = data.results.map((p,i)=>({
+    ...p,
+    id:i+1,
+    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i+1}.png`
   }
-
-  // console.log(pokemonsList)
+  ))
   
-  
-  const pokemons: SmallPokemons[] = pokemonsList
-
   return {
     props: {
-      pokemons: pokemons
+      pokemons
     }
   }
 }
