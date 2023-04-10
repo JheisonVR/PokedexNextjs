@@ -1,21 +1,25 @@
+import React, { useState } from 'react'
+
 import { pokeApi } from '@/api';
 import { Layout } from '@/components/layouts'
-import { Pokemon } from '@/interfaces';
-import { Card, Text, Grid, Row, Col, Button, Container, Table } from '@nextui-org/react';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import React, { useState } from 'react'
-import Image from 'next/image';
+import { PokemonFull } from '@/interfaces';
 import { localFavorites } from '@/utils';
 
+import { Card, Text, Grid, Row, Col, Button, Container, Table } from '@nextui-org/react';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import Image from 'next/image';
 import confetti from 'canvas-confetti'
+import { useRouter } from 'next/router';
 
 
 interface Props {
-    pokemon:Pokemon
+    pokemon:PokemonFull
 }
 
 
 const PokemonPage: NextPage<Props> = ({pokemon}) => {
+
+    const router = useRouter()
 
     const onToggleFavorite = () => {
         localFavorites.toggleFavorite(pokemon.id);
@@ -52,7 +56,6 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
                                 objectFit='fill'
                                 alt='pokemonImage...'
                             />
-                            <Text>Holiii</Text>
                         </Card.Body>
                         <Card.Footer
                             isBlurred
@@ -89,6 +92,7 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
                                         <Button
                                         flat
                                         auto
+                                        onClick={ ()=> router.push('/poketypes') }
                                         rounded
                                         css={{ color: "#94f9f0", bg: "#94f9f026" }}
                                         >
@@ -248,7 +252,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
 
     const {id} = ctx.params as {id: string}
-    const {data} = await pokeApi.get<Pokemon>(`/pokemon/${id}`)
+    const {data} = await pokeApi.get<PokemonFull>(`/pokemon/${id}`)
 
     return {
         props: {

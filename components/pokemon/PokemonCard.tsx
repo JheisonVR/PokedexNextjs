@@ -12,8 +12,9 @@ export const PokemonCard: FC<Props> = ({p}) => {
 
     const router = useRouter()
 
-    const onClick = () => {
+    const onClickPokemon = () => {
         router.push(`/pokemon/${p.id}`)
+        
     }
 
     return (
@@ -22,7 +23,7 @@ export const PokemonCard: FC<Props> = ({p}) => {
             <Card 
                 isHoverable 
                 isPressable
-                onClick={onClick}
+                onPress={onClickPokemon}
             >
                 <Card.Body>
                     <Card.Image
