@@ -1,11 +1,8 @@
-
-import Link from 'next/link'
 import { Layout } from '../components/layouts'
 import { GetStaticProps, NextPage } from 'next'
 import { pokeApi } from '@/api'
 import { PokemonLiistResponse, SmallPokemons } from '@/interfaces'
-import Image from 'next/image';
-import { Card, Grid, Row, Text } from '@nextui-org/react'
+import { Grid,Text } from '@nextui-org/react'
 import { PokemonCard } from '@/components/pokemon'
 
 
