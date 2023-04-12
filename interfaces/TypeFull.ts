@@ -2,10 +2,10 @@
 
 export interface TypeFull {
     damage_relations:      DamageRelations;
-    generation:            Generation;
+    generation:            string;
     id:                    number;
-    move_damage_class:     Generation;
-    moves:                 Generation[];
+    move_damage_class:     string;
+    moves:                 string[];
     name:                  string;
     names:                 Name[];
     past_damage_relations: any[];
@@ -13,15 +13,15 @@ export interface TypeFull {
 }
 
 export interface DamageRelations {
-    double_damage_from: Generation[];
+    double_damage_from: string[];
     double_damage_to:   any[];
     half_damage_from:   any[];
-    half_damage_to:     Generation[];
-    no_damage_from:     Generation[];
-    no_damage_to:       Generation[];
+    half_damage_to:     string[];
+    no_damage_from:     string[];
+    no_damage_to:       string[];
 }
 
-export interface Generation {
+export interface double_damage_from {
     name: string;
     url:  string;
 }
@@ -38,4 +38,11 @@ export interface Pokemon {
 export interface PokemonPokemon {
     name: string;
     url:  string;
+}
+
+export interface Example {    
+        key: string,
+        name: string,
+        role: string,
+        status: string,
 }
