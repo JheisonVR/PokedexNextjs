@@ -10,6 +10,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import confetti from 'canvas-confetti'
 import { useRouter } from 'next/router';
+import { getPokemonInfo } from '@/utils/getPokemonInfo';
 
 
 interface Props {
@@ -159,25 +160,25 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
                             <Container display='flex' justify='space-around' direction='row' gap={1} >
                                 
                                 <Image
-                                    src={pokemon.sprites.front_default}
+                                    src={pokemon.sprites.front_default || pokemon.sprites.front_default }
                                     alt='pokemon'
                                     width={100}
                                     height={100}
                                 />
                                 <Image
-                                    src={pokemon.sprites.back_default}
+                                    src={pokemon.sprites.back_default || pokemon.sprites.front_default}
                                     alt='pokemon'
                                     width={100}
                                     height={100}
                                 />
                                 <Image
-                                    src={pokemon.sprites.front_shiny}
+                                    src={pokemon.sprites.front_shiny || pokemon.sprites.front_default}
                                     alt='pokemon'
                                     width={100}
                                     height={100}
                                 />
                                 <Image
-                                    src={pokemon.sprites.back_shiny}
+                                    src={pokemon.sprites.back_shiny || pokemon.sprites.front_default}
                                     alt='pokemon'
                                     width={100}
                                     height={100}
@@ -244,7 +245,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
         //         params:{id:'3'}
         //     },
         // ],
-        fallback:false
+        fallback: 'blocking'
     }
 }
 
@@ -252,11 +253,23 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps = async (ctx) => {
 
     const {id} = ctx.params as {id: string}
-    const {data} = await pokeApi.get<PokemonFull>(`/pokemon/${id}`)
+    // const {data} = await pokeApi.get<PokemonFull>(`/pokemon/${id}`)
+
+    const pokemon = await getPokemonInfo(id)
+    // console.log(pokemon)
+
+    if(!pokemon){
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
 
     return {
         props: {
-            pokemon:data
+            pokemon:pokemon
         }
     }
     }
